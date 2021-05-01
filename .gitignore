@@ -1,0 +1,4 @@
+/.vscode
+/node_modules/jquery
+*.json
+*.DS_Store

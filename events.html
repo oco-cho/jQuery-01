@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practice with jQuery Events Lab</title>
+    <script src='scripts/jquery.js'></script>
+    <script>
+        $(function() {
+
+            //BUTTONS 
+            $('#btn1').click(function(e) {
+                alert('You clicked a button! Click Method.');
+            });
+
+            $('#btn2').bind('click', function(e) {
+                alert('You clicked a button! Bind Method.');
+            });
+
+            $('#btn3').on('click', function(e) {
+                alert('You clicked a button! On Method.');
+
+            });
+
+            $('#multi').on({
+                click: function(e) {
+                    alert('You clicked a button!');
+                }
+            }, "button");
+
+            //GREEN SQUARE - DIV WITH ALERT BOX
+            $('#div2').css({width: '400px', height: '400px', backgroundColor: 'green', marginTop: '20px'})
+            
+            $('#div2').on({
+                mouseenter: function() {
+                    alert('You entered the green square!');
+                },
+                mouseleave: function() {
+                    alert('You left the green square!');
+                },
+                click: function() {
+                    window.alert('You clicked the green square!');
+                }
+            });
+
+            //PINK SQUARE - DIV WITH SPAN TAG
+            $('#div3').css({width: '360px', height: '360px', padding: '20px', backgroundColor: 'pink', marginTop: '20px'});
+
+            $('#div3 span').css({color: 'green', fontWeight: 'bold'})
+            
+            $('#div3').on({
+                mouseenter: function() {
+                    $('#div3 span').text('You entered the pink square');
+                },
+                mouseleave: function() {
+                    $('#div3 span').text('You left the pink square');
+                },
+                click: function() {
+                    $('#div3 span').text('You clicked the pink square');
+                }
+            });
+
+            //LINK
+            $('#div4 h2 a').click(function(e) {
+                e.preventDefault();
+                $(this).css('color', 'red');
+                alert('The "' + event.target.nodeName + '" node triggered the event!');
+            });
+
+            //BROWSER RESIZE
+            $(window).resize(function() {
+                $('#div5 span:first').text($(window).width());
+                $('#div5 span:last').text($(window).height());
+            });
+
+            //TEXT FIELD - FOCUS
+            $('#div6 input').focus(function() {
+                $(this).css('background-color', '#ccc');
+            });
+
+            $('#div6 input').focusout(function() {
+                $(this).css('background-color', '#fff');
+            });
+
+            //FORM TAG
+            let name = $('#name');
+            let email = $('#email');
+
+            $('#div7 form').submit(function(e) {
+                e.preventDefault();
+
+                    if (name.val() === '') {
+                        name.addClass('blank');
+                    } else {
+                        name.removeClass('blank');
+                    }
+
+                    if (email.val() === '') {
+                        email.addClass('blank');
+                    } else {
+                        email.removeClass('blank');
+                    }
+
+                    if (email.hasClass('blank') || name.hasClass('blank')) {
+                        alert('Please fill out the required fields.')
+                    } else {
+                        name.css('border-color', 'green');
+                        email.css('border-color', 'green');
+                    }
+            });
+        });
+
+    </script>
+    <style>
+        .blank {border-color:red;}
+    </style>
+</head>
+<body style="padding: 40px;">
+    <div>
+        <button id="btn1">Click Method</button>
+        <button id="btn2">Bind Method</button>
+        <button id="btn3">On Method</button>
+        <div style="border:black solid 1px; background-color: yellow; padding: 30px; margin-top: 20px; width: 340px; text-align: center;" id="multi">
+            <button id="btn4">Single Handler</button>
+            <button id="btn5">Single Handler</button>
+        </div>
+    </div>
+    <div id="div2"></div>
+    <div id="div3"><span></span></div>
+    <div id="div4"><h2><a href="http://www.modulemedia.com/">Link to Module Media</a></h2></div>
+    <div id="div5" style="background-color: darksalmon; height: 200px; text-align: center; padding-top: 40px;">
+    <h2>The width of the broswer window is <span style="color: green;"></span>.</h2>
+    <h2>The height of the broswer window is <span style="color: green;"></span>.</h2>
+    </div>
+    <div id="div6" style="background-color:yellow; height: 100px; margin-top: 60px;"><input type="text" placeholder="This is a text field" style="width:200px; margin-left: 40px; margin-top: 20px;"></div>
+    <div id="div7" style="background-color:grey; height: 200px; margin-top: 60px;">
+        <form action="mailto:oconnell.choate@gmail.com" style="padding-top: 40px; padding-left:40px;">
+            <label for="name">Name: <input type="text" name="name" id="name"></label>
+            <label for="email">Email: <input type="email" name="email" id="email"></label>
+            <input type="submit" value="submit">
+        </form>
+    </div>
+</body>
+</html>
